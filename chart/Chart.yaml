@@ -1,0 +1,4 @@
+apiVersion: v2
+name: simple-service
+description: A simple HTTP echo microservice
+version: 0.1.0
