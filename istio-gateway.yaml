@@ -1,0 +1,125 @@
+# Gateway común para todos los servicios
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: main-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+# VirtualService para ms-a
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-a-route
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - main-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /ms-a
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: ms-a
+            port:
+              number: 80
+---
+# VirtualService para ms-b
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-b-route
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - main-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /ms-b
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: ms-b
+            port:
+              number: 80
+---
+# VirtualService para ms-c
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-c-route
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - main-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /ms-c
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: ms-c
+            port:
+              number: 80
+---
+# VirtualService para ms-d
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-d-route
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - main-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /ms-d
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: ms-d
+            port:
+              number: 80
+---
+# VirtualService para ms-e
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-e-route
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - main-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /ms-e
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: ms-e
+            port:
+              number: 80
